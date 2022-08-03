@@ -42,6 +42,7 @@ token to access the respective OSU API's. Here is an example of the config.json 
      ```shell
       $ pip3 install -r requirements.txt
      ```
+     
   2. Run the script:
 
     ```shell

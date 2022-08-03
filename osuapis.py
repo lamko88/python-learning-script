@@ -45,3 +45,4 @@ class osuAPIClass:
             'Content-Type': 'application/json'
         }
 
+

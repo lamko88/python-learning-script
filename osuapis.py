@@ -14,7 +14,7 @@ class osuAPIClass:
     # get credentials
         cid = data['client_id']
         csec = data['client_secret']
-        gtype = data['grant_type']
+        gtype = "client_credentials" 
 
     # get host, dir, loc, and term
         host = data['host']
@@ -39,7 +39,7 @@ class osuAPIClass:
         # print(token)
         return token
 
-    def headers(self,access_token):
+    def get_headers(self,access_token):
         return {
             'Authorization': f'Bearer {access_token}',
             'Content-Type': 'application/json'

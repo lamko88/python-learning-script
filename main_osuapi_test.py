@@ -1,19 +1,19 @@
-# main function to test OSU APIs:
+# main function to test OSU apis:
 # Directory, Location, and Terms
 #
 import json
 import requests
-import osuAPIs
+import osuapis
 
 def main():
-    c = osuAPIs.osuAPIClass()
+    c = osuapis.osuAPIClass()
     # retrieving config data
     cfg = c.read_config()
     # list mapping
     # cid = cfg[0]; csec = cfg[1]; gtype = cfg[2]; host = cfg[3]; 
     # dir = cfg[4]; loc = cfg[5]; term = cfg[6]
     access_token = c.access_token(cfg[0], cfg[1], cfg[2], cfg[3])
-    heads = c.headers(access_token)
+    heads = c.get_headers(access_token)
 
     # query parameters
     onid = 'lamko'
@@ -25,7 +25,7 @@ def main():
         'q': buildingAbbr,
         'calendarYear': calendarYear,
     }
-    
+
     # get directory
     r = requests.get(f'{cfg[3]}{cfg[4]}', headers=heads, params=params)
     r.raise_for_status()
@@ -50,3 +50,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

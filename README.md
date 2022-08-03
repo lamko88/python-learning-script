@@ -5,8 +5,8 @@ Owner: Kok-Meng Lam
 Created: 08-01-2022  
 
 ## Files to be used: 
-  - main_osuAPI_test.py
-  - osuAPIs.py
+  - main_osuapi_test.py
+  - osuapis.py
   - config.json
 
 ## Configuration
@@ -18,7 +18,6 @@ token to access the respective OSU API's. Here is an example of the config.json 
   {
     "client_id" : "your client_id",
     "client_secret" : "your client_secret",
-    "grant_type" : "client_credentials",
     "host": "https://api.oregonstate.edu/",
     "directory" : "your query directory url",
     "locations" : "your query locations url",
@@ -26,14 +25,14 @@ token to access the respective OSU API's. Here is an example of the config.json 
   }
   ```
 
-  These python scripts: main_osuAPI_test.py and osuAPIs.py, can be expandable to test out other   
-  OSU APIs by simply adding/modifying the function calls in main_osuAPI.py and add functions in 
-  osuAPIs.py.
+  These python scripts: main_osuapi_test.py and osuapis.py, can be expandable to test out other   
+  OSU APIs by simply adding/modifying the function calls in main_osuapi.py and add functions in 
+  osuspis.py.
 
   **Note:**
     
-    Please ensure that your config.json, main_osuAPI_test.py, and osuAPIs.py files are in the same  
-    directory.  
+    Please ensure that your config.json, main_osuapi_test.py, and osuapis.py files are in the same  
+    working directory.  
 
 ## Usage
 
@@ -46,5 +45,6 @@ token to access the respective OSU API's. Here is an example of the config.json 
   2. Run the script:
 
      ```shell
-      $ python3 main_osuAPI_test.py
+      $ python3 main_osuapi_test.py
      ```
+     

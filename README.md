@@ -44,6 +44,7 @@ token to access the respective OSU API's. Here is an example of the config.json 
      ```
   2. Run the script:
 
-    ```shell
+     ```shell
       $ python3 main_osuAPI_test.py
-    ```
+     ```
+

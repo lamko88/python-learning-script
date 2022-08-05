@@ -11,8 +11,9 @@ Created: 08-01-2022
 
 ## Configuration
 
-The config.json file contained user's information that are required in order to receive a valid   
-token to access the respective OSU API's. Here is an example of the config.json file:   
+The config.json file contained user's information that are required in order to 
+receive a valid token to access the respective OSU API's. Here is an example of 
+the config.json file:   
 
   ```json
   {

@@ -1,54 +1,82 @@
 # main function to test OSU apis:
 # Directory, Location, and Terms
-#
 import json
+
 import requests
-import osuapis
+
+import osu_apis
 
 def main():
-    c = osuapis.osuAPIClass()
-    # retrieving config data
-    cfg = c.read_config()
-    # list mapping
-    # cid = cfg[0]; csec = cfg[1]; gtype = cfg[2]; host = cfg[3]; 
-    # dir = cfg[4]; loc = cfg[5]; term = cfg[6]
-    access_token = c.access_token(cfg[0], cfg[1], cfg[2], cfg[3])
-    heads = c.get_headers(access_token)
+    
+    # assigning an object
 
-    # query parameters
+    c = osu_apis.osu_api_class()
+    
+    # retrieving config data , requesting access token, and
+    # authorization headers
+    
+    dict = c.read_config()
+ 
+    access_token = c.get_access_token(
+                                        dict['client_id'], 
+                                        dict['client_secret'], 
+                                        dict['client_credentials'], 
+                                        dict['host_url']
+                                     )
+    
+    headers = c.get_headers(access_token)
+
+    # query parameters.
+    # these parameters maybe replace with other valid values
+    # based on user's need.
+    # for valid query parameters, please visit 
+    # https://developer.oregonstate.edu/apis for more information
+ 
     onid = 'lamko'
     buildingAbbr = 'jsb'
     calendarYear = '2023'
 
     params = {
-        'filter[onid]': onid,
-        'q': buildingAbbr,
-        'calendarYear': calendarYear,
-    }
+                'filter[onid]': onid,
+                'q': buildingAbbr,
+                'calendarYear': calendarYear,
+             }
 
     # get directory
-    r = requests.get(f'{cfg[3]}{cfg[4]}', headers=heads, params=params)
-    r.raise_for_status()
-    data = r.json()
-    response_data = data['data']
-    print("\nResponse Data for Directory:\n", response_data)
+
+    print(
+            "\nResponse Data for Directory:\n",
+             c.get_response(
+                              dict['host_url'],
+                              dict['directory_url'],
+                              headers=headers, 
+                              params=params
+                           )
+         )
 
     # get Location
-    r = requests.get(f'{cfg[3]}{cfg[5]}', headers=heads, params=params)
-    r.raise_for_status()
-    data = r.json()
-    response_data = data['data']
-    print("\nResponse Data for Location:\n", response_data)
+
+    print(
+            "\nResponse Data for Location:\n", 
+            c.get_response(
+                              dict['host_url'],
+                              dict['location_url'],
+                              headers=headers, 
+                              params=params
+                          )
+         )
 
     # get Terms
-    r = requests.get(f'{cfg[3]}{cfg[6]}', headers=heads, params=params)
-    r.raise_for_status()
-    data = r.json()
-    response_data = data['data']
-    print("\nResponse Data for Terms:\n", response_data)
 
+    print(
+            "\nResponse Data for Terms:\n", 
+            c.get_response(
+                              dict['host_url'],
+                              dict['terms_url'],
+                              headers=headers, 
+                              params=params
+                          )
+         )
 
 if __name__ == "__main__":
     main()
-
-

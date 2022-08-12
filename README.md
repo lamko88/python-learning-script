@@ -5,8 +5,8 @@ Owner: Kok-Meng Lam
 Created: 08-01-2022  
 
 ## Files to be used: 
-  - main_osuAPI_test.py
-  - osuAPIs.py
+  - main_osuapi_test.py
+  - osuapis.py
   - config.json
 
 ## Configuration
@@ -31,7 +31,7 @@ the config.json file:
 
   **Note:**
     
-    Please ensure that your config.json, main_osuAPI_test.py, and osuAPIs.py files are in the same directory.  
+    Please ensure that your config.json, main_osuapi_test.py, and osuapis.py files are in the same directory.  
 
 ## Usage
 

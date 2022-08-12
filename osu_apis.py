@@ -155,4 +155,5 @@ class osu_api_class:
         else:
             data = get_query_response.json()
             return data['data']
+            
 

@@ -43,16 +43,16 @@ def main():
     while True:
         try:
             onid = str(input("\nEnter ONID name: ")) 
-            buildingAbbr = str(input("Enter Building Abbreviation(Ex: JSB): "))
-            calendarYear = str(input("Enter Calendar Year(Example: 2022): "))
+            building_abbr = str(input("Enter Building Abbreviation(Ex: JSB): "))
+            calendar_year = str(input("Enter Calendar Year(Example: 2022): "))
         except ValueError:
             print("\nInvalid data type or Missing data. "+
                   "Please try again...\n"
                   )
             continue
         if not(
-                onid.isalpha() and buildingAbbr.isalpha() and 
-                calendarYear.isdigit()
+                onid.isalpha() and building_abbr.isalpha() and 
+                calendar_year.isdigit()
                ):
             print("\nOops, invalid data type. "+
                   "Please try entering the data again...\n"
@@ -62,8 +62,8 @@ def main():
 
     params = {
           'filter[onid]': onid,
-          'q': buildingAbbr,
-          'calendarYear': calendarYear,
+          'q': building_abbr,
+          'calendarYear': calendar_year,
     }
 
     print(

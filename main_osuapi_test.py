@@ -35,9 +35,9 @@ def main():
 
     :param onid: user's onid choice for query
     :type: string
-    :param buildingAbbr: user's building abbreviated choice for query
+    :param building_abbr: user's building abbreviated choice for query
     :type: string
-    :param calendarYear: user's calendar year choice for query
+    :param calendar_year: user's calendar year choice for query
     :type: string
     """
     while True:
@@ -115,4 +115,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
+

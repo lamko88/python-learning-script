@@ -19,7 +19,6 @@ the config.json file:
   {
     "client_id" : "your client_id",
     "client_secret" : "your client_secret",
-    "grant_type" : "client_credentials",
     "host": "https://api.oregonstate.edu/",
     "directory" : "your query directory url",
     "locations" : "your query locations url",

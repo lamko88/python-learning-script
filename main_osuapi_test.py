@@ -1,5 +1,3 @@
-# main function to test OSU apis:
-# Directory, Location, and Terms
 import json
 
 import requests
@@ -7,76 +5,113 @@ import requests
 import osu_apis
 
 def main():
+    """Creating an object to an OSU API class
+    """  
+    api_class_obj = osu_apis.osu_api_class()
     
-    # assigning an object
+    """Get user's config data
 
-    c = osu_apis.osu_api_class()
-    
-    # retrieving config data , requesting access token, and
-    # authorization headers
-    
-    dict = c.read_config()
+    :param client_id: user's client_id
+    :param client_secret: user's client_secret
+    :param grant_type: hard-coded value, client_credentials
+    :param host: host url
+    """
+    config_dict = api_class_obj.read_config()
  
-    access_token = c.get_access_token(
-                                        dict['client_id'], 
-                                        dict['client_secret'], 
-                                        dict['client_credentials'], 
-                                        dict['host_url']
-                                     )
+    """Get access_token using user's config data
+    """
+    access_token = api_class_obj.get_access_token(
+                                      config_dict['client_id'], 
+                                      config_dict['client_secret'], 
+                                      config_dict['grant_type'], 
+                                      config_dict['host_url']
+                    )
     
-    headers = c.get_headers(access_token)
+    """Get header data using access_token value
+    """
+    headers = api_class_obj.get_headers(access_token)
 
-    # query parameters.
-    # these parameters maybe replace with other valid values
-    # based on user's need.
-    # for valid query parameters, please visit 
-    # https://developer.oregonstate.edu/apis for more information
- 
-    onid = 'lamko'
-    buildingAbbr = 'jsb'
-    calendarYear = '2023'
+    """User's query data inputs
+
+    :param onid: user's onid choice for query
+    :type: string
+    :param buildingAbbr: user's building abbreviated choice for query
+    :type: string
+    :param calendarYear: user's calendar year choice for query
+    :type: string
+    """
+    while True:
+        try:
+            onid = str(input("\nEnter ONID name: ")) 
+            buildingAbbr = str(input("Enter Building Abbreviation(Ex: JSB): "))
+            calendarYear = str(input("Enter Calendar Year(Example: 2022): "))
+        except ValueError:
+            print("\nInvalid data type or Missing data. "+
+                  "Please try again...\n"
+                  )
+            continue
+        if not(
+                onid.isalpha() and buildingAbbr.isalpha() and 
+                calendarYear.isdigit()
+               ):
+            print("\nOops, invalid data type. "+
+                  "Please try entering the data again...\n"
+                  )
+        else:
+            break
 
     params = {
-                'filter[onid]': onid,
-                'q': buildingAbbr,
-                'calendarYear': calendarYear,
-             }
-
-    # get directory
+          'filter[onid]': onid,
+          'q': buildingAbbr,
+          'calendarYear': calendarYear,
+    }
 
     print(
             "\nResponse Data for Directory:\n",
-             c.get_response(
-                              dict['host_url'],
-                              dict['directory_url'],
-                              headers=headers, 
-                              params=params
-                           )
-         )
+             api_class_obj.get_response(
+                                config_dict['host_url'],
+                                config_dict['directory_url'],
+                                headers=headers, 
+                                params=params
+              )
+    )
+    """Get response Directory query data using these input parameters
 
-    # get Location
+    :param host_url: user's defined host_url
+    :type: string
+    :param directory_url: user's query choice: directory, location, or term
+    :type: string
+    :param headers: header information to get query response
+    :type: json
+    :param params: user's input parameters
+    :type: string
+    :return: query data
+    :rtype: json
+    """
 
+    """Get location response data using user's data inputs
+    """
     print(
             "\nResponse Data for Location:\n", 
-            c.get_response(
-                              dict['host_url'],
-                              dict['location_url'],
+            api_class_obj.get_response(
+                              config_dict['host_url'],
+                              config_dict['location_url'],
                               headers=headers, 
                               params=params
-                          )
-         )
+            )
+  )
 
-    # get Terms
-
+    """Get terms response data using user's data inputs
+    """
     print(
             "\nResponse Data for Terms:\n", 
-            c.get_response(
-                              dict['host_url'],
-                              dict['terms_url'],
+            api_class_obj.get_response(
+                              config_dict['host_url'],
+                              config_dict['terms_url'],
                               headers=headers, 
                               params=params
-                          )
-         )
+            )
+    )
 
 if __name__ == "__main__":
     main()

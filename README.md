@@ -27,14 +27,11 @@ the config.json file:
   }
   ```
 
-  These python scripts: main_osuAPI_test.py and osuAPIs.py, can be expandable to test out other   
-  OSU APIs by simply adding/modifying the function calls in main_osuAPI.py and add functions in 
-  osuAPIs.py.
+  These python scripts: main_osuapi_test.py and osuapis.py, can be expandable to test out other OSU APIs by simply adding/modifying the function calls in main_osuapi.py and add functions in osuapis.py.
 
   **Note:**
     
-    Please ensure that your config.json, main_osuAPI_test.py, and osuAPIs.py files are in the same  
-    directory.  
+    Please ensure that your config.json, main_osuAPI_test.py, and osuAPIs.py files are in the same directory.  
 
 ## Usage
 
@@ -46,6 +43,6 @@ the config.json file:
   2. Run the script:
 
      ```shell
-      $ python3 main_osuAPI_test.py
+      $ python3 main_osuapi_test.py
      ```
 

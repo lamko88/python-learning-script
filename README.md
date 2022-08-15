@@ -52,6 +52,6 @@ the config.json file:
         Enter ONID name: abcd
         Enter Building Abbreviation(Ex: JSB): JSB
         Enter Calendar Year(Example: 2022): 2023
-    ```
-    
+     ```
+
 

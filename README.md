@@ -45,8 +45,8 @@ the config.json file:
       $ python3 main_osuapi_test.py
      ```
 
-  3. The run script will prompt for user's inputs, namely: Directory, Locations,
-     and Terms. Here is an example of the prompted user's inputs.
+  3. The run script will prompt for user's inputs for queries to Directory, 
+     Locations, and Terms. Here is an example of the prompted user's inputs.
 
      ```shell
         Enter ONID name: abcd

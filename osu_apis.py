@@ -4,11 +4,11 @@ import json
 
 import requests
 
+
 class osu_api_class:
-      
+
     def read_config(self):
-        """Read in user's config.json file if exist
-        """        
+        """Read in user's config.json file if exist"""
         if exists('config.json'):
             with open('config.json', 'r') as cfg:
                 data = json.load(cfg)
@@ -18,26 +18,26 @@ class osu_api_class:
             :param k: key in dictionary data
             :param v: value in dictionary data
             """
-            for k,v in data.items():
-                if (k == "client_id" and v.isalnum() and len(v) > 0):
-                   continue
-                elif (k == "client_secret" and v.isalnum() and len(v) > 0):
-                   continue
-                elif (k == "grant_type" and v.isascii() and len(v) > 0):
+            for k, v in data.items():
+                if (k == 'client_id' and v.isalnum() and v.strip()):
                     continue
-                elif (k == "host" and v.isascii() and len(v) > 0):
+                elif (k == 'client_secret' and v.isalnum() and v.strip()):
                     continue
-                elif (k == "directory" and v.isascii() and len(v) > 0):
+                elif (k == 'grant_type' and v.isascii() and v.strip()):
                     continue
-                elif (k == "locations" and v.isascii() and len(v) > 0):
+                elif (k == 'host' and v.isascii() and v.strip()):
                     continue
-                elif (k == "terms" and v.isascii() and len(v) > 0):
+                elif (k == 'directory' and v.isascii() and v.strip()):
+                    continue
+                elif (k == 'locations' and v.isascii() and v.strip()):
+                    continue
+                elif (k == 'terms' and v.isascii() and v.strip()):
                     continue
                 else:
-                    print("\nInvalid data",(k,v),"found in config.json file.")
+                    print("\nInvalid data", (k, v), "in config.json file.")
                     print("Exiting!\n")
                     exit()
-              
+
             """Creating a dictionary using the config.file data
 
             :param client_id: User's client_id value
@@ -48,7 +48,7 @@ class osu_api_class:
             :param location_url: Location url to be used in query
             :param terms_url: Terms url to be used in query
             :returns: Dictionary, config_dict
-            """    
+            """
             config_dict = {
                     'client_id': data['client_id'],
                     'client_secret': data['client_secret'],
@@ -76,13 +76,13 @@ class osu_api_class:
         :param host: host url
         :type host: string
         """
-       
+
         params = {
                     'client_id': client_id,
                     'client_secret': client_secret,
                     'grant_type': grant_type,
-                  }   
-        
+                }
+
         """Parameter values to be used as client's information to request
            for access token
 
@@ -98,21 +98,21 @@ class osu_api_class:
 
         token_response = requests.post(f'{host}oauth2/token', params)
         if (token_response.status_code != 200):
-            print(  
-                    "\nToken response error. "+
-                    "Expected status code is 200."+
-                    "\nPlease review client credentials in "+
+            print(
+                    "\nToken response error. " +
+                    "Expected status code is 200." +
+                    "\nPlease review client credentials in " +
                     "config.json for valid data.\n"
-                  )
+            )
             exit()
         else:
             token = token_response.json()['access_token']
             return token
 
-    def get_headers(self,access_token):
+    def get_headers(self, access_token):
         """Setting up headers information using input parameter, access_token
 
-        :param access_token: Token value obtained from get_access_token function
+        :param access_token: Token value obtained from get_access_token func
         :type: string
         :return: Header information
         :rtype: string
@@ -123,37 +123,33 @@ class osu_api_class:
                 }
 
     def get_response(self, host, query_directory, headers, params):
-        """Get response from query directory using the following input
-           parameters and then returning the response data
+        """Get response from query directory using the following inputs:
 
-        :param host: host url
+        :input: host: host url
         :type: string
-        :param query_directory: query url to use
-        :type: string
-        :param headers: header information
+        :input: query_directory: query url to use
+        :type:string
+        :input: headers: header information
         :type: json
-        :param params: user's input parameters for query
-        :type: string
-        :return: response data value, data['data']
-        :rtype: json format
+        :input: params: user's input parameters for query
+        type: string
         """
-        
+
         get_query_response = requests.get(
-                            f'{host}{query_directory}', 
-                            headers=headers, 
+                            f'{host}{query_directory}',
+                            headers=headers,
                             params=params
                         )
+
         if (get_query_response.status_code != 200):
-            print(  
-                    "\nHeader response errors. "+
+            print(
+                    "\nHeader response errors. " +
                     "Expected status code = 200, but got",
-                    get_query_response.status_code,"."
-                    "\nPlease review query directories in config.json "+
+                    get_query_response.status_code, "."
+                    "\nPlease review query directories in config.json " +
                     "for valid data.\n"
-                  )
+                )
             exit()
         else:
             data = get_query_response.json()
             return data['data']
-            
-

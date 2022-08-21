@@ -22,17 +22,17 @@ class osu_api_class:
             :param v: value in dictionary data
             """
             for k, v in data.items():
-                if (k == 'client_id' and v):
+                if (k == 'client_id' and v.split()):
                     continue
-                elif (k == 'client_secret' and v):
+                elif (k == 'client_secret' and v.split()):
                     continue
-                elif (k == 'host' and v):
+                elif (k == 'host' and v.split()):
                     continue
-                elif (k == 'directory' and v):
+                elif (k == 'directory' and v.split()):
                     continue
-                elif (k == 'locations' and v):
+                elif (k == 'locations' and v.split()):
                     continue
-                elif (k == 'terms' and v):
+                elif (k == 'terms' and v.split()):
                     continue
                 else:
                     print(

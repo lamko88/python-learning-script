@@ -3,16 +3,10 @@ import osu_apis
 
 
 def main():
+
     # Creating an object to an OSU API class
     api_class_obj = osu_apis.osu_api_class()
 
-    """Get user's config data
-
-    :param client_id: user's client_id
-    :param client_secret: user's client_secret
-    :param grant_type: hard-coded value, client_credentials
-    :param host: host url
-    """
     config_dict = api_class_obj.read_config()
 
     # Get access_token using user's config.json data
@@ -25,15 +19,7 @@ def main():
     # Get header data using access_token value
     headers = api_class_obj.get_headers(access_token)
 
-    """User's query data inputs
-
-    :param onid: user's onid choice for query
-    :type: string
-    :param building_abbr: user's building abbreviated choice for query
-    :type: string
-    :param calendar_year: user's calendar year choice for query
-    :type: string
-    """
+    # User's query data inputs
     while True:
         try:
             onid = str(input('\nEnter ONID name: '))

@@ -10,7 +10,8 @@ import requests
 
 class osu_api_class:
 
-    def read_config(self):
+    def read_config(self) -> dict:
+
         # Read in user's config.json file if exist
         if exists('config.json'):
             with open('config.json', 'r') as cfg:
@@ -48,7 +49,6 @@ class osu_api_class:
                 'location_url': data['locations'],
                 'terms_url': data['terms'],
             }
-
             return config_dict
         else:
             print('\nconfig.json file not found. Exiting!!!\n')
@@ -60,13 +60,6 @@ class osu_api_class:
         client_secret: string,
         host: string
     ) -> string:
-        """ Get access token using these input parameters listed below.
-
-        :param client_id: User's client_id value
-        :param client_secret: User's client_secret
-        :param grant_type: Hard-coded value, 'client_credentials'
-        :param host: host url
-        """
 
         params = {
             'client_id': client_id,
@@ -88,31 +81,22 @@ class osu_api_class:
             token = token_response.json()['access_token']
             return token
 
-    def get_headers(self, access_token):
-        """Setting up headers information using input parameter, access_token
+    def get_headers(
+        self,
+        access_token: string
+    ) -> string:
 
-        :param access_token: Token value obtained from get_access_token func
-        :type: string
-        :return: Header information
-        :rtype: string
-        """
         return {
             'Authorization': f'Bearer {access_token}',
             'Content-Type': 'application/json'
         }
 
-    def get_response(self, host, query_directory, headers, params):
-        """Get response from query directory using the following inputs:
-
-        :input: host: host url
-        :type: string
-        :input: query_directory: query url to use
-        :type:string
-        :input: headers: header information
-        :type: json
-        :input: params: user's input parameters for query
-        type: string
-        """
+    def get_response(
+        self, host: string,
+        query_directory: string,
+        headers: json,
+        params: string
+    ) -> string:
 
         get_query_response = requests.get(
                                 f'{host}{query_directory}',
@@ -130,4 +114,5 @@ class osu_api_class:
             exit()
         else:
             data = get_query_response.json()
+
             return data['data']

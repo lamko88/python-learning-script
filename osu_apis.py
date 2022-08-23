@@ -1,9 +1,5 @@
-
-from os.path import exists
-
 import json
-
-import string
+from os.path import exists
 
 import requests
 
@@ -17,28 +13,18 @@ class osu_api_class:
             with open('config.json', 'r') as cfg:
                 data = json.load(cfg)
 
-            """Checking data validity
-
-            :param k: key in dictionary data
-            :param v: value in dictionary data
-            """
+            # Checking data validity pair: k (key) and v (value) existence
+            require_keys = [
+                'client_id', 'client_secret', 'host',
+                'directory', 'locations', 'terms'
+            ]
             for k, v in data.items():
-                if (k == 'client_id' and v.split()):
-                    continue
-                elif (k == 'client_secret' and v.split()):
-                    continue
-                elif (k == 'host' and v.split()):
-                    continue
-                elif (k == 'directory' and v.split()):
-                    continue
-                elif (k == 'locations' and v.split()):
-                    continue
-                elif (k == 'terms' and v.split()):
+                if (k in require_keys and v):
                     continue
                 else:
                     print(
                         f'\nInvalid data {k, v} in config.json file. Exiting!!'
-                        )
+                    )
                     exit()
 
             config_dict = {
@@ -56,10 +42,10 @@ class osu_api_class:
 
     def get_access_token(
         self,
-        client_id: string,
-        client_secret: string,
-        host: string
-    ) -> string:
+        client_id: str,
+        client_secret: str,
+        host: str
+    ) -> str:
 
         params = {
             'client_id': client_id,
@@ -83,8 +69,8 @@ class osu_api_class:
 
     def get_headers(
         self,
-        access_token: string
-    ) -> string:
+        access_token: str
+    ) -> str:
 
         return {
             'Authorization': f'Bearer {access_token}',
@@ -92,17 +78,18 @@ class osu_api_class:
         }
 
     def get_response(
-        self, host: string,
-        query_directory: string,
+        self,
+        host: str,
+        query_directory: str,
         headers: json,
-        params: string
-    ) -> string:
+        params: str
+    ) -> str:
 
         get_query_response = requests.get(
-                                f'{host}{query_directory}',
-                                headers=headers,
-                                params=params
-                                )
+            f'{host}{query_directory}',
+            headers=headers,
+            params=params
+        )
 
         status_code = get_query_response.status_code
 
